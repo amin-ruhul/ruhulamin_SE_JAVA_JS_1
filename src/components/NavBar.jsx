@@ -6,6 +6,10 @@ import ShoppingBasketOutlinedIcon from "@material-ui/icons/ShoppingBasketOutline
 
 const Container = styled.div`
   height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
 `;
 
 const Wrapper = styled.div`
@@ -52,6 +56,9 @@ const MenuItem = styled.div`
   font-size: 16px;
   cursor: pointer;
   margin-left: 20px;
+  &:hover {
+    background-color: green;
+  }
 `;
 const NavBar = () => {
   return (
@@ -71,7 +78,7 @@ const NavBar = () => {
           <MenuItem>Login</MenuItem>
           <MenuItem>About</MenuItem>
           <MenuItem>
-            <Badge badgeContent={4} color="primary">
+            <Badge badgeContent={1} color="primary">
               <ShoppingBasketOutlinedIcon />
             </Badge>
           </MenuItem>
