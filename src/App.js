@@ -5,6 +5,7 @@ import Home from "./components/pages/Home";
 import ProductState from "./context/product/ProductState";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Card from "./components/Card";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
           </Route>
           <Route exact path="/card">
             <Card />
+          </Route>
+          <Route exact path="/dashboard">
+            <Dashboard />
           </Route>
         </Switch>
       </Router>
