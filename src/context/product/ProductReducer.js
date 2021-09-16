@@ -5,6 +5,7 @@ import {
   CLEAR_CURRENT,
   SET_CURRENT,
   UPDATE_PRODUCT,
+  DELETE_PRODUCT,
 } from "../action";
 
 // eslint-disable-next-line
@@ -42,6 +43,11 @@ export default (state, action) => {
         products: state.products.map((product) =>
           product.id !== payload.id ? product : payload
         ),
+      };
+    case DELETE_PRODUCT:
+      return {
+        ...state,
+        products: state.products.filter((product) => product.id !== payload),
       };
     default:
       return state;

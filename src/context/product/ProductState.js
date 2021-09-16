@@ -9,6 +9,7 @@ import {
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_PRODUCT,
+  DELETE_PRODUCT,
 } from "../action";
 import { popularProducts } from "../../data/data";
 
@@ -45,6 +46,11 @@ const ProductState = (props) => {
     dispatch({ type: UPDATE_PRODUCT, payload: product });
   };
 
+  //
+  const deleteProduct = (id) => {
+    dispatch({ type: DELETE_PRODUCT, payload: id });
+  };
+
   //***********  manage cart **********
 
   // ad item to card
@@ -68,6 +74,7 @@ const ProductState = (props) => {
         setCurrent,
         clearCurrent,
         updateProduct,
+        deleteProduct,
       }}
     >
       {props.children}

@@ -108,6 +108,7 @@ const Dashboard = () => {
     setCurrent,
     updateProduct,
     clearCurrent,
+    deleteProduct,
   } = productContext;
 
   console.log(products);
@@ -272,7 +273,9 @@ const Dashboard = () => {
                 <SmallBtn type="edit" onClick={() => setCurrent(product)}>
                   Edit
                 </SmallBtn>
-                <SmallBtn>Delete</SmallBtn>
+                <SmallBtn onClick={() => deleteProduct(product.id)}>
+                  Delete
+                </SmallBtn>
               </Action>
             </ProductWrapper>
           ))}
