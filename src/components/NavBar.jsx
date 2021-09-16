@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import Badge from "@material-ui/core/Badge";
 import ShoppingBasketOutlinedIcon from "@material-ui/icons/ShoppingBasketOutlined";
 import { smartPhone } from "../utils/responsive";
+import { Link } from "react-router-dom";
+import ProductContext from "../context/product/productContext";
 
 const Container = styled.div`
   height: 60px;
@@ -68,6 +70,8 @@ const MenuItem = styled.div`
   }
 `;
 const NavBar = () => {
+  const productContext = useContext(ProductContext);
+  const { card } = productContext;
   return (
     <Container>
       <Wrapper>
@@ -81,11 +85,20 @@ const NavBar = () => {
           </SearchContainer>
         </Center>
         <Right>
-          <MenuItem>Register</MenuItem>
-          <MenuItem>Login</MenuItem>
-          <MenuItem>About</MenuItem>
+          <Link to="/">
+            <MenuItem>Home</MenuItem>
+          </Link>
+          <Link to="/register">
+            <MenuItem>Register</MenuItem>
+          </Link>
+          <Link to="/login">
+            <MenuItem>Login</MenuItem>
+          </Link>
+          <Link to="/about">
+            <MenuItem>About</MenuItem>
+          </Link>
           <MenuItem>
-            <Badge badgeContent={1} color="primary">
+            <Badge badgeContent={card.length} color="primary">
               <ShoppingBasketOutlinedIcon />
             </Badge>
           </MenuItem>

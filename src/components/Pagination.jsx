@@ -29,7 +29,9 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
     <Container>
       <Wrapper>
         {pageNumbers.map((number) => (
-          <Item onClick={() => paginate(number)}>{number}</Item>
+          <Item key={number} onClick={() => paginate(number)}>
+            {number}
+          </Item>
         ))}
       </Wrapper>
     </Container>

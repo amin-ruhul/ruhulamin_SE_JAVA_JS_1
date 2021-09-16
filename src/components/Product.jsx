@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { smartPhone } from "../utils/responsive";
+import ProductContext from "../context/product/productContext";
 
 const Container = styled.div`
   flex: 1;
@@ -35,6 +36,9 @@ const Button = styled.button`
 `;
 
 const Product = ({ item }) => {
+  const productContext = useContext(ProductContext);
+  const { addToCard } = productContext;
+
   return (
     <Container>
       <InfoWrapper>
@@ -44,7 +48,7 @@ const Product = ({ item }) => {
 
       <Image src={item.img} />
       <ButtonWrapper>
-        <Button>Add To Card</Button>
+        <Button onClick={() => addToCard(item)}>Add To Card</Button>
       </ButtonWrapper>
     </Container>
   );
