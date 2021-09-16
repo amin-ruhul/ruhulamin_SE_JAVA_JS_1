@@ -1,7 +1,8 @@
 import React, { useReducer } from "react";
+import { v4 as uuidv4 } from "uuid";
 import ProductContext from "./productContext";
 import ProductReducer from "./ProductReducer";
-import { ADD_TO_CARD, REMOVE_FROM_CARD, LOAD_PRODUCT } from "../action";
+import { ADD_TO_CARD, REMOVE_FROM_CARD, CREATE_PRODUCT } from "../action";
 import { popularProducts } from "../../data/data";
 
 const ProductState = (props) => {
@@ -12,8 +13,9 @@ const ProductState = (props) => {
 
   const [state, dispatch] = useReducer(ProductReducer, initialState);
 
-  const getALLProduct = () => {
-    dispatch({ type: LOAD_PRODUCT });
+  const AddProduct = (data) => {
+    let id = uuidv4();
+    dispatch({ type: CREATE_PRODUCT, payload: { ...data, id } });
   };
 
   const addToCard = (data) => {
@@ -30,7 +32,7 @@ const ProductState = (props) => {
         products: state.products,
         addToCard,
         removeFromCard,
-        getALLProduct,
+        AddProduct,
       }}
     >
       {props.children}

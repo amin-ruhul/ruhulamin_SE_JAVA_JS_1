@@ -1,6 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import ProductContext from "../context/product/productContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Container = styled.div`
   padding: 20px;
@@ -81,24 +83,135 @@ const SmallBtn = styled.button`
   color: white;
 `;
 
+// configure testify
+toast.configure();
+
 const Dashboard = () => {
+  const [data, setData] = useState({
+    name: "",
+    img: "",
+    price: "",
+    profit: "",
+    tag: "",
+  });
+  const { name, img, price, profit, tag } = data;
   const productContext = useContext(ProductContext);
-  const { products } = productContext;
+  const { products, AddProduct } = productContext;
 
   console.log(products);
+
+  // make toasts
+  const successToast = () => {
+    toast.success("Product Add Successfully", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const nameToast = () => {
+    toast.error("Name is Require!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const imgToast = () => {
+    toast.error("Url is Require!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const priceToast = () => {
+    toast.error("Price is Require!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const profitToast = () => {
+    toast.error("Profit is Require!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const tagToast = () => {
+    toast.error("Type is Require!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  // set state value
+  const handelChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // clear the current state
+  const clearState = () => {
+    setData({
+      name: "",
+      img: "",
+      price: "",
+      profit: "",
+      tag: "",
+    });
+  };
+  // create new product
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    data.price = parseInt(data.price);
+    data.profit = parseInt(data.profit);
+
+    // check the values
+    if (!name) nameToast();
+    if (!img) imgToast();
+    if (!price) priceToast();
+    if (!profit) profitToast();
+    if (!tag) tagToast();
+
+    if (name && img && price && profit && tag) {
+      AddProduct(data);
+      successToast();
+      clearState();
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
         <CardWrapper>
           <Card>
             <Text>Add Product</Text>
-            <Form>
-              <Input type="text" placeholder="Product Name" />
-              <Input type="text" placeholder="Product Price" />
-              <Input type="text" placeholder="Product Image Url" />
-              <Input type="text" placeholder="Product Profit" />
-              <Select name="" id="">
-                <option value="">Product Type</option>
+            <Form onSubmit={handelSubmit}>
+              <Input
+                type="text"
+                placeholder="Product Name"
+                name="name"
+                onChange={handelChange}
+                value={name}
+              />
+              <Input
+                type="number"
+                placeholder="Product Price"
+                name="price"
+                onChange={handelChange}
+                value={price}
+              />
+              <Input
+                type="text"
+                placeholder="Product Image Url"
+                name="img"
+                onChange={handelChange}
+                value={img}
+              />
+              <Input
+                type="number"
+                placeholder="Product Profit"
+                name="profit"
+                onChange={handelChange}
+                value={profit}
+              />
+              <Select name="tag" id="" onChange={handelChange}>
+                <option value={tag}>Product Type</option>
                 <option value="Ram">RAM</option>
                 <option value="Motherboard">MOTHERBOARD</option>
                 <option value="Graphics Card">GRAPHICS CARD</option>
@@ -113,8 +226,8 @@ const Dashboard = () => {
             <ProductWrapper key={product.id}>
               <Image src={product.img} />
               <Name>{product.name}</Name>
-              <Price>$ {Product.price}</Price>
-              <Profit>10% {Product.profit}</Profit>
+              <Price>$ {product.price}</Price>
+              <Profit>{product.profit} %</Profit>
               <Type>Ram</Type>
               <Action>
                 <SmallBtn type="edit">Edit</SmallBtn>
