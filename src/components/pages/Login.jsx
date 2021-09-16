@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { smartPhone } from "../../utils/responsive";
 
 const Container = styled.div`
   width: 100vw;
@@ -8,6 +9,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   background: #ffe3e3;
+  scroll-bar: none;
 `;
 const Wrapper = styled.div`
   width: 40%;
@@ -15,6 +17,7 @@ const Wrapper = styled.div`
   background: white;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
+  ${smartPhone({ width: "85%", padding: "10px" })}
 `;
 const Form = styled.form`
   display: flex;
@@ -30,6 +33,7 @@ const Input = styled.input`
   margin: 20px 10px 0px 0px;
   padding: 7px;
   outline: none;
+  border: 1px solid #22577a;
 `;
 const Button = styled.button`
   width: 30%;
@@ -41,6 +45,7 @@ const Button = styled.button`
   cursor: pointer;
   border-radius: 5px;
   font-size: 15px;
+  ${smartPhone({ width: "100%" })}
 
   &:hover {
     color: #22577a;
@@ -52,7 +57,7 @@ const Login = () => {
   return (
     <Container>
       <Wrapper>
-        <Title>Login In</Title>
+        <Title>Login</Title>
         <Form>
           <Input type="email" placeholder="Email" />
           <Input type="password" placeholder="Password" />

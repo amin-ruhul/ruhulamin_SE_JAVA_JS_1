@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { smartPhone } from "../../utils/responsive";
 
 const Container = styled.div`
   width: 100vw;
@@ -15,6 +16,7 @@ const Wrapper = styled.div`
   background: white;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
+  ${smartPhone({ width: "85%", padding: "10px" })}
 `;
 const Form = styled.form`
   display: flex;
@@ -30,6 +32,8 @@ const Input = styled.input`
   margin: 20px 10px 0px 0px;
   padding: 7px;
   outline: none;
+  border: 1px solid #22577a;
+  border-radius: 5px;
 `;
 const Button = styled.button`
   width: 30%;
@@ -41,6 +45,7 @@ const Button = styled.button`
   cursor: pointer;
   border-radius: 5px;
   font-size: 15px;
+  ${smartPhone({ width: "100%" })}
 
   &:hover {
     color: #22577a;
