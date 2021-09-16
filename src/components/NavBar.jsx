@@ -97,11 +97,13 @@ const NavBar = () => {
           <Link to="/about">
             <MenuItem>About</MenuItem>
           </Link>
-          <MenuItem>
-            <Badge badgeContent={card.length} color="primary">
-              <ShoppingBasketOutlinedIcon />
-            </Badge>
-          </MenuItem>
+          <Link to="/card">
+            <MenuItem>
+              <Badge badgeContent={card.length} color="primary">
+                <ShoppingBasketOutlinedIcon />
+              </Badge>
+            </MenuItem>
+          </Link>
         </Right>
       </Wrapper>
     </Container>

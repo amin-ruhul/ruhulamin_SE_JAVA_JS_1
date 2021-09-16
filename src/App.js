@@ -4,6 +4,7 @@ import Login from "./components/pages/Login";
 import Home from "./components/pages/Home";
 import ProductState from "./context/product/ProductState";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Card from "./components/Card";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           </Route>
           <Route exact path="/register">
             <Register />
+          </Route>
+          <Route exact path="/card">
+            <Card />
           </Route>
         </Switch>
       </Router>
