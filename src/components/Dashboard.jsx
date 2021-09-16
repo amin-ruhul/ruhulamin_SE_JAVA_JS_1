@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import ProductContext from "../context/product/productContext";
 import { toast } from "react-toastify";
@@ -52,10 +52,15 @@ const Button = styled.button`
   background: #93b5c6;
   cursor: pointer;
   border: 0.5px solid #93b5c6;
+  margin-bottom: 5px;
   &:hover {
     color: #93b5c6;
     background: white;
   }
+`;
+const ClearButton = styled.button`
+  padding: 7px 10px;
+  font-size: 15px;
 `;
 
 const ProductWrapper = styled.div`
@@ -96,13 +101,26 @@ const Dashboard = () => {
   });
   const { name, img, price, profit, tag } = data;
   const productContext = useContext(ProductContext);
-  const { products, AddProduct } = productContext;
+  const {
+    products,
+    AddProduct,
+    current,
+    setCurrent,
+    updateProduct,
+    clearCurrent,
+  } = productContext;
 
   console.log(products);
 
   // make toasts
   const successToast = () => {
     toast.success("Product Add Successfully", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const updateToast = () => {
+    toast.success("Product update Successfully", {
       position: toast.POSITION.TOP_CENTER,
     });
   };
@@ -169,18 +187,36 @@ const Dashboard = () => {
     if (!tag) tagToast();
 
     if (name && img && price && profit && tag) {
-      AddProduct(data);
-      successToast();
-      clearState();
+      if (current) {
+        updateProduct(data);
+        updateToast();
+        clearState();
+        clearCurrent();
+      } else {
+        AddProduct(data);
+        successToast();
+        clearState();
+      }
     }
   };
 
+  // set current
+  useEffect(() => {
+    if (current) {
+      setData(current);
+    } else {
+      clearState();
+    }
+  }, [current]);
+
+  console.log("data", data);
+  console.log("current", current);
   return (
     <Container>
       <Wrapper>
         <CardWrapper>
           <Card>
-            <Text>Add Product</Text>
+            <Text> {current ? "Update Product" : "Add Product"}</Text>
             <Form onSubmit={handelSubmit}>
               <Input
                 type="text"
@@ -216,8 +252,11 @@ const Dashboard = () => {
                 <option value="Motherboard">MOTHERBOARD</option>
                 <option value="Graphics Card">GRAPHICS CARD</option>
               </Select>
-              <Button>Submit</Button>
+              <Button>{current ? "Update" : "ADD"}</Button>
             </Form>
+            {current && (
+              <ClearButton onClick={() => clearState()}>Clear</ClearButton>
+            )}
           </Card>
         </CardWrapper>
         <Product>
@@ -230,22 +269,13 @@ const Dashboard = () => {
               <Profit>{product.profit} %</Profit>
               <Type>Ram</Type>
               <Action>
-                <SmallBtn type="edit">Edit</SmallBtn>
+                <SmallBtn type="edit" onClick={() => setCurrent(product)}>
+                  Edit
+                </SmallBtn>
                 <SmallBtn>Delete</SmallBtn>
               </Action>
             </ProductWrapper>
           ))}
-          {/* <ProductWrapper>
-            <Image src="https://images.pexels.com/photos/3846157/pexels-photo-3846157.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" />
-            <Name>Product 1</Name>
-            <Price>$ 100</Price>
-            <Profit>10%</Profit>
-            <Type>Ram</Type>
-            <Action>
-              <SmallBtn type="edit">Edit</SmallBtn>
-              <SmallBtn>Delete</SmallBtn>
-            </Action>
-          </ProductWrapper> */}
         </Product>
       </Wrapper>
     </Container>

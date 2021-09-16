@@ -1,4 +1,11 @@
-import { ADD_TO_CARD, REMOVE_FROM_CARD, CREATE_PRODUCT } from "../action";
+import {
+  ADD_TO_CARD,
+  REMOVE_FROM_CARD,
+  CREATE_PRODUCT,
+  CLEAR_CURRENT,
+  SET_CURRENT,
+  UPDATE_PRODUCT,
+} from "../action";
 
 // eslint-disable-next-line
 export default (state, action) => {
@@ -18,6 +25,23 @@ export default (state, action) => {
       return {
         ...state,
         products: [...state.products, payload],
+      };
+    case SET_CURRENT:
+      return {
+        ...state,
+        current: payload,
+      };
+    case CLEAR_CURRENT:
+      return {
+        ...state,
+        current: payload,
+      };
+    case UPDATE_PRODUCT:
+      return {
+        ...state,
+        products: state.products.map((product) =>
+          product.id !== payload.id ? product : payload
+        ),
       };
     default:
       return state;
