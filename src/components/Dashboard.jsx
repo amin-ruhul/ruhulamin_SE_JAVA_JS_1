@@ -4,6 +4,7 @@ import ProductContext from "../context/product/productContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { smartPhone } from "../utils/responsive";
+import Pagination from "./Pagination";
 
 const Container = styled.div`
   padding: 20px;
@@ -110,6 +111,8 @@ const Dashboard = () => {
     tag: "",
   });
   const { name, img, price, profit, tag } = data;
+
+  // context
   const productContext = useContext(ProductContext);
   const {
     products,
@@ -122,6 +125,18 @@ const Dashboard = () => {
   } = productContext;
 
   console.log(products);
+
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(4);
+
+  // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = products.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // make toasts
   const successToast = () => {
@@ -219,6 +234,7 @@ const Dashboard = () => {
     } else {
       clearState();
     }
+    //eslint-disable-next-line.
   }, [current]);
 
   console.log("data", data);
@@ -275,7 +291,7 @@ const Dashboard = () => {
           <Text>Products</Text>
           {products.length === 0 && <Text>No Product Found</Text>}
           {products.length !== 0 &&
-            products.map((product) => (
+            currentPosts.map((product) => (
               <ProductWrapper key={product.id}>
                 <Image src={product.img} />
                 <Name>{product.name}</Name>
@@ -292,6 +308,11 @@ const Dashboard = () => {
                 </Action>
               </ProductWrapper>
             ))}
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={products.length}
+            paginate={paginate}
+          />
         </Product>
       </Wrapper>
     </Container>

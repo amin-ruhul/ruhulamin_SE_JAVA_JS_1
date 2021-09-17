@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { smartPhone } from "../../utils/responsive";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Container = styled.div`
   width: 100%;
@@ -53,20 +55,110 @@ const Button = styled.button`
     transition: all 0.5s ease;
   }
 `;
+// configure testify
+toast.configure();
 
 const Register = () => {
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password2: "",
+  });
+  const { name, email, password, password2 } = data;
+  // make toasts
+  const successToast = () => {
+    toast.success(" Success", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const nameToast = () => {
+    toast.error("Name is Require!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const emailToast = () => {
+    toast.error("Email is Require!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const passwordToast = () => {
+    toast.error("password is Require!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const password2Toast = () => {
+    toast.error("Confirm password is Require!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const notMatchToast = () => {
+    toast.error("password not match!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // check field is empty
+    if (!name) nameToast();
+    if (!email) emailToast();
+    if (!password) passwordToast();
+    if (!password2) password2Toast();
+
+    // check password is ok
+    if (password !== password2) notMatchToast();
+
+    if (name && email && password & (password2 === password)) {
+      successToast();
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
         <Title>Create Account</Title>
-        <Form>
-          <Input type="text" placeholder="Full Name" />
-          <Input type="email" placeholder="Email" />
-          <Input type="password" placeholder="Password" />
-          <Input type="password" placeholder="Confirm password" />
-          <span>
-            <Input type="checkbox" /> Terms & Condition
-          </span>
+        <Form onSubmit={handleSubmit}>
+          <Input
+            type="text"
+            placeholder="Full Name"
+            name="name"
+            value={name}
+            onChange={handleChange}
+          />
+          <Input
+            type="email"
+            placeholder="Email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+          />
+          <Input
+            type="password"
+            placeholder="Confirm password"
+            name="password2"
+            value={password2}
+            onChange={handleChange}
+          />
           <Button>Sign Up</Button>
         </Form>
       </Wrapper>

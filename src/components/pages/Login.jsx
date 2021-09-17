@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { smartPhone } from "../../utils/responsive";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Container = styled.div`
   width: 100%;
@@ -53,15 +55,77 @@ const Button = styled.button`
     transition: all 0.5s ease;
   }
 `;
-
+// configure testify
+toast.configure();
 const Login = () => {
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = data;
+  // make toasts
+  const successToast = () => {
+    toast.success(" Success", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const emailToast = () => {
+    toast.error("Email is Require!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const passwordToast = () => {
+    toast.error("Password is Require!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const invalidToast = () => {
+    toast.error("Invalid Credential!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email) emailToast();
+    if (!password) passwordToast();
+
+    if (email === "user@gmail.com" && password === "user123") {
+      successToast();
+    } else {
+      invalidToast();
+    }
+  };
   return (
     <Container>
       <Wrapper>
         <Title>Login</Title>
-        <Form>
-          <Input type="email" placeholder="Email" />
-          <Input type="password" placeholder="Password" />
+        <Form onSubmit={handleSubmit}>
+          <Input
+            type="email"
+            placeholder="Email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+          />
           <Button>Sign In</Button>
         </Form>
       </Wrapper>
