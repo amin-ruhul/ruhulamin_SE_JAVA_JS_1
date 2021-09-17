@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { smartPhone } from "../utils/responsive";
 import Pagination from "./Pagination";
+import Statistics from "./Statistics";
 
 const Container = styled.div`
   padding: 20px;
@@ -74,21 +75,32 @@ const ProductWrapper = styled.div`
   justify-content: space-around;
   align-items: center;
   border: 1px solid green;
+  ${smartPhone({ justifyContent: "space-between" })}
 `;
 const Image = styled.img`
   width: 70px;
   height: 70px;
-  ${smartPhone({ display: "none" })}
+  flex: 1 ${smartPhone({ display: "none" })};
 `;
-const Name = styled.p``;
-const Price = styled.p``;
+const Name = styled.p`
+  flex: 1;
+`;
+
+const Price = styled.p`
+  flex: 1;
+  ${smartPhone({ display: "none" })};
+`;
 const Profit = styled.p`
-  ${smartPhone({ display: "none" })}
+  flex: 1;
+  ${smartPhone({ display: "none" })};
 `;
 const Type = styled.p`
-  ${smartPhone({ display: "none" })}
+  flex: 1;
+  ${smartPhone({ display: "none" })};
 `;
-const Action = styled.div``;
+const Action = styled.div`
+  flex: 1;
+`;
 const SmallBtn = styled.button`
   margin: 5px;
   padding: 5px;
@@ -240,82 +252,85 @@ const Dashboard = () => {
   console.log("data", data);
   console.log("current", current);
   return (
-    <Container>
-      <Wrapper>
-        <CardWrapper>
-          <Card>
-            <Text> {current ? "Update Product" : "Add Product"}</Text>
-            <Form onSubmit={handelSubmit}>
-              <Input
-                type="text"
-                placeholder="Product Name"
-                name="name"
-                onChange={handelChange}
-                value={name}
-              />
-              <Input
-                type="number"
-                placeholder="Product Price"
-                name="price"
-                onChange={handelChange}
-                value={price}
-              />
-              <Input
-                type="text"
-                placeholder="Product Image Url"
-                name="img"
-                onChange={handelChange}
-                value={img}
-              />
-              <Input
-                type="number"
-                placeholder="Product Profit"
-                name="profit"
-                onChange={handelChange}
-                value={profit}
-              />
-              <Select name="tag" id="" onChange={handelChange}>
-                <option value={tag}>Product Type</option>
-                <option value="Ram">RAM</option>
-                <option value="Motherboard">MOTHERBOARD</option>
-                <option value="Graphics Card">GRAPHICS CARD</option>
-              </Select>
-              <Button>{current ? "Update" : "ADD"}</Button>
-            </Form>
-            {current && (
-              <ClearButton onClick={() => clearState()}>Clear</ClearButton>
-            )}
-          </Card>
-        </CardWrapper>
-        <Product>
-          <Text>Products</Text>
-          {products.length === 0 && <Text>No Product Found</Text>}
-          {products.length !== 0 &&
-            currentPosts.map((product) => (
-              <ProductWrapper key={product.id}>
-                <Image src={product.img} />
-                <Name>{product.name}</Name>
-                <Price>$ {product.price}</Price>
-                <Profit>{product.profit} %</Profit>
-                <Type>Ram</Type>
-                <Action>
-                  <SmallBtn type="edit" onClick={() => setCurrent(product)}>
-                    Edit
-                  </SmallBtn>
-                  <SmallBtn onClick={() => deleteProduct(product.id)}>
-                    Delete
-                  </SmallBtn>
-                </Action>
-              </ProductWrapper>
-            ))}
-          <Pagination
-            postsPerPage={postsPerPage}
-            totalPosts={products.length}
-            paginate={paginate}
-          />
-        </Product>
-      </Wrapper>
-    </Container>
+    <>
+      <Statistics />
+      <Container>
+        <Wrapper>
+          <CardWrapper>
+            <Card>
+              <Text> {current ? "Update Product" : "Add Product"}</Text>
+              <Form onSubmit={handelSubmit}>
+                <Input
+                  type="text"
+                  placeholder="Product Name"
+                  name="name"
+                  onChange={handelChange}
+                  value={name}
+                />
+                <Input
+                  type="number"
+                  placeholder="Product Price"
+                  name="price"
+                  onChange={handelChange}
+                  value={price}
+                />
+                <Input
+                  type="text"
+                  placeholder="Product Image Url"
+                  name="img"
+                  onChange={handelChange}
+                  value={img}
+                />
+                <Input
+                  type="number"
+                  placeholder="Product Profit"
+                  name="profit"
+                  onChange={handelChange}
+                  value={profit}
+                />
+                <Select name="tag" id="" onChange={handelChange}>
+                  <option value={tag}>Product Type</option>
+                  <option value="Ram">RAM</option>
+                  <option value="Motherboard">MOTHERBOARD</option>
+                  <option value="Graphics Card">GRAPHICS CARD</option>
+                </Select>
+                <Button>{current ? "Update" : "ADD"}</Button>
+              </Form>
+              {current && (
+                <ClearButton onClick={() => clearState()}>Clear</ClearButton>
+              )}
+            </Card>
+          </CardWrapper>
+          <Product>
+            <Text>Products</Text>
+            {products.length === 0 && <Text>No Product Found</Text>}
+            {products.length !== 0 &&
+              currentPosts.map((product) => (
+                <ProductWrapper key={product.id}>
+                  <Image src={product.img} />
+                  <Name>{product.name}</Name>
+                  <Price>$ {product.price}</Price>
+                  <Profit>{product.profit} %</Profit>
+                  <Type>{product.tag}</Type>
+                  <Action>
+                    <SmallBtn type="edit" onClick={() => setCurrent(product)}>
+                      Edit
+                    </SmallBtn>
+                    <SmallBtn onClick={() => deleteProduct(product.id)}>
+                      Delete
+                    </SmallBtn>
+                  </Action>
+                </ProductWrapper>
+              ))}
+            <Pagination
+              postsPerPage={postsPerPage}
+              totalPosts={products.length}
+              paginate={paginate}
+            />
+          </Product>
+        </Wrapper>
+      </Container>
+    </>
   );
 };
 
