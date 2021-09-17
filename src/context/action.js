@@ -6,3 +6,8 @@ export const SET_CURRENT = "SET_CURRENT";
 export const CLEAR_CURRENT = "CLEAR_CURRENT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const SEARCH_PRODUCT = "SEARCH_PRODUCT";
+
+export const LOGIN_USER = "LOGIN_USER";
+export const REGISTER_USER = "REGISTER_USER";
+export const LOGOUT = "LOGOUT";

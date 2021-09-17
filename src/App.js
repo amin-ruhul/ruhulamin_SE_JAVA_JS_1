@@ -7,32 +7,35 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Card from "./components/Card";
 import Dashboard from "./components/Dashboard";
 import Footer from "./components/Footer";
+import UserState from "./context/user/UserState";
 
 function App() {
   return (
-    <ProductState>
-      <Router>
-        <NavBar />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/register">
-            <Register />
-          </Route>
-          <Route exact path="/card">
-            <Card />
-          </Route>
-          <Route exact path="/dashboard">
-            <Dashboard />
-          </Route>
-        </Switch>
-        <Footer />
-      </Router>
-    </ProductState>
+    <UserState>
+      <ProductState>
+        <Router>
+          <NavBar />
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/register">
+              <Register />
+            </Route>
+            <Route exact path="/card">
+              <Card />
+            </Route>
+            <Route exact path="/dashboard">
+              <Dashboard />
+            </Route>
+          </Switch>
+          <Footer />
+        </Router>
+      </ProductState>
+    </UserState>
   );
 }
 
