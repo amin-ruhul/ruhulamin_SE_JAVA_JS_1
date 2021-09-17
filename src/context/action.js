@@ -7,6 +7,7 @@ export const CLEAR_CURRENT = "CLEAR_CURRENT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const SEARCH_PRODUCT = "SEARCH_PRODUCT";
+export const SEARCH_CLEAR = "SEARCH_CLEAR";
 
 export const LOGIN_USER = "LOGIN_USER";
 export const REGISTER_USER = "REGISTER_USER";

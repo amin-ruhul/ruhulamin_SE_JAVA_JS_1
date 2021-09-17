@@ -10,6 +10,8 @@ import {
   CLEAR_CURRENT,
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
+  SEARCH_PRODUCT,
+  SEARCH_CLEAR,
 } from "../action";
 import { popularProducts } from "../../data/data";
 
@@ -19,6 +21,7 @@ const ProductState = (props) => {
     products: [...popularProducts],
     card: [],
     current: null,
+    filtered: null,
   };
 
   const [state, dispatch] = useReducer(ProductReducer, initialState);
@@ -51,6 +54,15 @@ const ProductState = (props) => {
     dispatch({ type: DELETE_PRODUCT, payload: id });
   };
 
+  // search product
+  const searchProduct = (text) => {
+    dispatch({ type: SEARCH_PRODUCT, payload: text });
+  };
+
+  // CLEAR SEARCH
+  const clearSearch = () => {
+    dispatch({ type: SEARCH_CLEAR, payload: null });
+  };
   //***********  manage cart **********
 
   // ad item to card
@@ -62,12 +74,14 @@ const ProductState = (props) => {
   const removeFromCard = (id) => {
     dispatch({ type: REMOVE_FROM_CARD, payload: id });
   };
+
   return (
     <ProductContext.Provider
       value={{
         card: state.card,
         products: state.products,
         current: state.current,
+        filtered: state.filtered,
         addToCard,
         removeFromCard,
         AddProduct,
@@ -75,6 +89,8 @@ const ProductState = (props) => {
         clearCurrent,
         updateProduct,
         deleteProduct,
+        searchProduct,
+        clearSearch,
       }}
     >
       {props.children}

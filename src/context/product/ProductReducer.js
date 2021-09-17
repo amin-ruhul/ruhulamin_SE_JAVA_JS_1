@@ -6,6 +6,8 @@ import {
   SET_CURRENT,
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
+  SEARCH_PRODUCT,
+  SEARCH_CLEAR,
 } from "../action";
 
 // eslint-disable-next-line
@@ -48,6 +50,19 @@ export default (state, action) => {
       return {
         ...state,
         products: state.products.filter((product) => product.id !== payload),
+      };
+    case SEARCH_PRODUCT:
+      return {
+        ...state,
+        filtered: state.products.filter((product) => {
+          const regex = new RegExp(`${payload}`, `gi`);
+          return product.name.match(regex) || product.tag.match(regex);
+        }),
+      };
+    case SEARCH_CLEAR:
+      return {
+        ...state,
+        filtered: payload,
       };
     default:
       return state;

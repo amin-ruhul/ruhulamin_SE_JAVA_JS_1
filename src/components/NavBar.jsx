@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import Badge from "@material-ui/core/Badge";
@@ -80,11 +80,23 @@ const Brand = styled.span`
 `;
 
 const NavBar = () => {
+  const term = useRef();
+
+  // call the context
   const productContext = useContext(ProductContext);
   const userContext = useContext(UserContext);
-  const { card } = productContext;
+  const { card, searchProduct, clearSearch } = productContext;
   const { user, isAuthenticated, logout } = userContext;
-  console.log("Nav", user, isAuthenticated);
+
+  // handle search value
+  const handelChange = (e) => {
+    if (term.current.value) {
+      searchProduct(term.current.value);
+    } else {
+      clearSearch();
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -95,7 +107,12 @@ const NavBar = () => {
         </Left>
         <Center>
           <SearchContainer>
-            <Input type="text" placeholder="Search" />
+            <Input
+              type="text"
+              placeholder="Search"
+              ref={term}
+              onChange={handelChange}
+            />
             <SearchIcon />
           </SearchContainer>
         </Center>
