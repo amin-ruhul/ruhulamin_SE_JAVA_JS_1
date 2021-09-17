@@ -6,6 +6,7 @@ import ShoppingBasketOutlinedIcon from "@material-ui/icons/ShoppingBasketOutline
 import { smartPhone } from "../utils/responsive";
 import { Link } from "react-router-dom";
 import ProductContext from "../context/product/productContext";
+import UserContext from "../context/user/userContext.js";
 
 const Container = styled.div`
   height: 60px;
@@ -80,7 +81,10 @@ const Brand = styled.span`
 
 const NavBar = () => {
   const productContext = useContext(ProductContext);
+  const userContext = useContext(UserContext);
   const { card } = productContext;
+  const { user, isAuthenticated, logout } = userContext;
+  console.log("Nav", user, isAuthenticated);
   return (
     <Container>
       <Wrapper>
@@ -96,18 +100,30 @@ const NavBar = () => {
           </SearchContainer>
         </Center>
         <Right>
+          {isAuthenticated && <>Hello {user}</>}
           <Link to="/" style={{ textDecoration: "none" }}>
             <MenuItem>Home</MenuItem>
           </Link>
-          <Link to="/register" style={{ textDecoration: "none" }}>
-            <MenuItem>Register</MenuItem>
-          </Link>
-          <Link to="/login" style={{ textDecoration: "none" }}>
-            <MenuItem>Login</MenuItem>
-          </Link>
+          {!isAuthenticated && (
+            <>
+              <Link to="/register" style={{ textDecoration: "none" }}>
+                <MenuItem>Register</MenuItem>
+              </Link>
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <MenuItem>Login</MenuItem>
+              </Link>
+            </>
+          )}
+
           <Link to="/about" style={{ textDecoration: "none" }}>
             <MenuItem>About</MenuItem>
           </Link>
+
+          {isAuthenticated && (
+            <Link to="" style={{ textDecoration: "none" }}>
+              <MenuItem onClick={() => logout()}>Logout</MenuItem>
+            </Link>
+          )}
           <Link to="/card">
             <MenuItem>
               <Badge badgeContent={card.length} color="primary">

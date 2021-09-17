@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { smartPhone } from "../../utils/responsive";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UserContext from "../../context/user/userContext.js";
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -63,6 +65,12 @@ const Login = () => {
     password: "",
   });
 
+  // create history
+  const history = useHistory();
+  // call context
+  const userContext = useContext(UserContext);
+  const { loginUser, user, isAuthenticated } = userContext;
+
   const { email, password } = data;
   // make toasts
   const successToast = () => {
@@ -102,11 +110,19 @@ const Login = () => {
     if (!password) passwordToast();
 
     if (email === "user@gmail.com" && password === "user123") {
+      loginUser(data);
       successToast();
+      history.push("/");
+    } else if (email === "admin@gmail.com" && password === "admin123") {
+      loginUser(data);
+      successToast();
+      history.push("/dashboard");
     } else {
       invalidToast();
     }
   };
+  console.log("user", user);
+  console.log("Auth", isAuthenticated);
   return (
     <Container>
       <Wrapper>
