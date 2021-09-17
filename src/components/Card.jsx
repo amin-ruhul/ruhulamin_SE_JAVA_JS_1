@@ -10,7 +10,14 @@ const Container = styled.div`
   background: white;
   text-align: center;
   border-radius: 10px;
+
   ${smartPhone({ width: "90%" })}
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Header = styled.h1`
@@ -27,12 +34,37 @@ const Total = styled.h1`
   ${smartPhone({ fontSize: "30px" })}
 `;
 
-const Card = ({ title, total }) => {
+const Label = styled.h1`
+  font-size: 20px;
+  font-weight: 600;
+  color: #3a0ca3;
+  ${smartPhone({ fontSize: "30px" })}
+`;
+
+const Image = styled.img`
+  width: 40%;
+  height: 40%;
+`;
+
+const Card = ({ title, total, type, name, img }) => {
   return (
-    <Container>
-      <Header>{title}</Header>
-      <Total>{total}</Total>
-    </Container>
+    <>
+      {type !== "category" && (
+        <Container>
+          <Header>{title}</Header>
+          <Image src={img} />
+        </Container>
+      )}
+
+      {type === "category" && (
+        <Container>
+          <Wrapper>
+            <Label>{name}</Label>
+            <Image src={img} alt="" />
+          </Wrapper>
+        </Container>
+      )}
+    </>
   );
 };
 

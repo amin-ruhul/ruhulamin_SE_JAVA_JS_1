@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { smartPhone } from "../utils/responsive";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Container = styled.div`
   display: flex;
@@ -10,7 +12,7 @@ const Container = styled.div`
   background: #4361ee;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,12 +46,23 @@ const Text = styled.span`
   color: #fff;
   text-align: center;
 `;
+toast.configure();
 const Footer = () => {
+  // toast
+  const successToast = () => {
+    toast.success(" Thanks!", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    successToast();
+  };
   return (
     <>
       <Container>
-        <Wrapper>
-          <Input placeholder="Enter you email" />
+        <Wrapper onSubmit={handleSubmit}>
+          <Input placeholder="Enter you email" required />
           <Button>Subscribe</Button>
         </Wrapper>
         <Text>©ruhul2021,all rights reserved</Text>
