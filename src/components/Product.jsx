@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 const Image = styled.img`
   width: 100%;
-  height: 75%;
+  height: 270px;
 `;
 const InfoWrapper = styled.div`
   padding: 10px 30px;
@@ -29,10 +29,19 @@ const Name = styled.p`
 `;
 const Price = styled.p`
   font-size: 30px;
-  font-weight: 500;
+  font-weight: 300;
+  color: #9d0208;
 `;
 const Button = styled.button`
-  padding: 2px;
+  padding: 3px 5px;
+  background: #f48c06;
+  border: 1px solid #f48c06;
+  cursor: pointer;
+  &:hover {
+    color: #f48c06;
+    background: #fff;
+    transition: all 0.5s ease;
+  }
 `;
 
 const Product = ({ item }) => {

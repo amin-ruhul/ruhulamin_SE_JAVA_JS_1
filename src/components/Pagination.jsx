@@ -9,15 +9,18 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 40px;
-  background: blue;
-  border: 1px solid blue;
 `;
 const Item = styled.span`
   padding: 5px 7px;
   margin-right: 1px;
   cursor: pointer;
   background: white;
+  border-radius: 50px;
   box-shadow: 2px 2px solid black;
+  &:hover {
+    background: #3a0ca3;
+    color: white;
+  }
 `;
 
 const Pagination = ({ postsPerPage, totalPosts, paginate }) => {

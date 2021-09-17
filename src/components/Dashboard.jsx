@@ -3,14 +3,16 @@ import styled from "styled-components";
 import ProductContext from "../context/product/productContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { smartPhone } from "../utils/responsive";
 
 const Container = styled.div`
   padding: 20px;
+  ${smartPhone({ padding: "10px" })}
 `;
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 50vh;
+  ${smartPhone({ flexDirection: "column" })}
 `;
 const CardWrapper = styled.div`
   flex: 1;
@@ -20,6 +22,7 @@ const Card = styled.div`
   margin-left: 20%;
   padding: 20px;
   box-shadow: 0px 2px 4px black;
+  ${smartPhone({ width: "90%", marginLeft: "5%" })}
 `;
 const Form = styled.form`
   display: flex;
@@ -44,17 +47,19 @@ const Select = styled.select`
 
 const Product = styled.div`
   flex: 1;
+  ${smartPhone({ marginTop: "15px" })}
 `;
 const Button = styled.button`
   padding: 7px 0;
   font-size: 15px;
   color: white;
-  background: #93b5c6;
+  background: #4361ee;
   cursor: pointer;
-  border: 0.5px solid #93b5c6;
+  border: 0.5px solid #4361ee;
   margin-bottom: 5px;
+  transition: all 0.5s ease;
   &:hover {
-    color: #93b5c6;
+    color: #4361ee;
     background: white;
   }
 `;
@@ -72,11 +77,16 @@ const ProductWrapper = styled.div`
 const Image = styled.img`
   width: 70px;
   height: 70px;
+  ${smartPhone({ display: "none" })}
 `;
 const Name = styled.p``;
 const Price = styled.p``;
-const Profit = styled.p``;
-const Type = styled.p``;
+const Profit = styled.p`
+  ${smartPhone({ display: "none" })}
+`;
+const Type = styled.p`
+  ${smartPhone({ display: "none" })}
+`;
 const Action = styled.div``;
 const SmallBtn = styled.button`
   margin: 5px;
@@ -173,6 +183,7 @@ const Dashboard = () => {
       profit: "",
       tag: "",
     });
+    clearCurrent();
   };
   // create new product
   const handelSubmit = (e) => {
@@ -262,23 +273,25 @@ const Dashboard = () => {
         </CardWrapper>
         <Product>
           <Text>Products</Text>
-          {products.map((product) => (
-            <ProductWrapper key={product.id}>
-              <Image src={product.img} />
-              <Name>{product.name}</Name>
-              <Price>$ {product.price}</Price>
-              <Profit>{product.profit} %</Profit>
-              <Type>Ram</Type>
-              <Action>
-                <SmallBtn type="edit" onClick={() => setCurrent(product)}>
-                  Edit
-                </SmallBtn>
-                <SmallBtn onClick={() => deleteProduct(product.id)}>
-                  Delete
-                </SmallBtn>
-              </Action>
-            </ProductWrapper>
-          ))}
+          {products.length === 0 && <Text>No Product Found</Text>}
+          {products.length !== 0 &&
+            products.map((product) => (
+              <ProductWrapper key={product.id}>
+                <Image src={product.img} />
+                <Name>{product.name}</Name>
+                <Price>$ {product.price}</Price>
+                <Profit>{product.profit} %</Profit>
+                <Type>Ram</Type>
+                <Action>
+                  <SmallBtn type="edit" onClick={() => setCurrent(product)}>
+                    Edit
+                  </SmallBtn>
+                  <SmallBtn onClick={() => deleteProduct(product.id)}>
+                    Delete
+                  </SmallBtn>
+                </Action>
+              </ProductWrapper>
+            ))}
         </Product>
       </Wrapper>
     </Container>

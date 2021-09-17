@@ -2,9 +2,12 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import CardItem from "./CardItem";
 import { smartPhone } from "../utils/responsive";
+import { useHistory } from "react-router-dom";
 import ProductContext from "../context/product/productContext";
 
-const Container = styled.div``;
+const Container = styled.div`
+  padding-bottom: 20px;
+`;
 const Wrapper = styled.div`
   padding: 20px;
   ${smartPhone({ padding: "10px" })}
@@ -31,17 +34,34 @@ const TopButton = styled.button`
   color: ${(props) => (props.type === "outline" ? "black" : "white")};
   font-weight: 400;
   font-size: 17px;
+
+  &:hover {
+    background: #560bad;
+    color: white;
+    transition: all 0.5s ease;
+  }
 `;
 
 const Card = () => {
+  // call the context
   const productContext = useContext(ProductContext);
   const { card, removeFromCard } = productContext;
+
+  //create history
+  const history = useHistory();
+
+  // change history
+  const goToHome = () => {
+    history.push("/");
+  };
   return (
     <Container>
       <Wrapper>
         <Title>My Basket</Title>
         <TopButtonWrapper>
-          <TopButton type="outline">Continue Shopping</TopButton>
+          <TopButton type="outline" onClick={() => goToHome()}>
+            Continue Shopping
+          </TopButton>
           <></>
         </TopButtonWrapper>
         {card.length === 0 ? (

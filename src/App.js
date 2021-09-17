@@ -6,6 +6,7 @@ import ProductState from "./context/product/ProductState";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Card from "./components/Card";
 import Dashboard from "./components/Dashboard";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Dashboard />
           </Route>
         </Switch>
+        <Footer />
       </Router>
     </ProductState>
   );

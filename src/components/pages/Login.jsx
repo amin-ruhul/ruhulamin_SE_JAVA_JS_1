@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { smartPhone } from "../../utils/responsive";
 
 const Container = styled.div`
-  width: 100vw;
-  height: 87vh;
+  width: 100%;
+  height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,7 +12,7 @@ const Container = styled.div`
   scroll-bar: none;
 `;
 const Wrapper = styled.div`
-  width: 40%;
+  width: 35%;
   padding: 20px;
   background: white;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -36,7 +36,7 @@ const Input = styled.input`
   border: 1px solid #22577a;
 `;
 const Button = styled.button`
-  width: 30%;
+  width: 25%;
   margin: 10px 0;
   padding: 10px 15px;
   border: 1px solid #22577a;
@@ -50,6 +50,7 @@ const Button = styled.button`
   &:hover {
     color: #22577a;
     background: white;
+    transition: all 0.5s ease;
   }
 `;
 

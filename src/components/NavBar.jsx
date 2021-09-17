@@ -60,15 +60,24 @@ const Logo = styled.h2`
   ${smartPhone({ fontSize: "20px", textAlign: "center" })}
 `;
 
-const MenuItem = styled.div`
-  font-size: 16px;
+const MenuItem = styled.span`
+  font-size: 17px;
   cursor: pointer;
   margin-left: 20px;
   ${smartPhone({ fontSize: "12px", marginLeft: "10px" })}
   &:hover {
-    background-color: green;
+    background-color: rgba(208, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px 7px;
+    transition: all 0.5s ease;
+    color: white;
   }
 `;
+
+const Brand = styled.span`
+  color: #d00000;
+`;
+
 const NavBar = () => {
   const productContext = useContext(ProductContext);
   const { card } = productContext;
@@ -76,7 +85,9 @@ const NavBar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Logo>ECOM</Logo>
+          <Logo>
+            <Brand>E</Brand>COM
+          </Logo>
         </Left>
         <Center>
           <SearchContainer>
@@ -85,16 +96,16 @@ const NavBar = () => {
           </SearchContainer>
         </Center>
         <Right>
-          <Link to="/">
+          <Link to="/" style={{ textDecoration: "none" }}>
             <MenuItem>Home</MenuItem>
           </Link>
-          <Link to="/register">
+          <Link to="/register" style={{ textDecoration: "none" }}>
             <MenuItem>Register</MenuItem>
           </Link>
-          <Link to="/login">
+          <Link to="/login" style={{ textDecoration: "none" }}>
             <MenuItem>Login</MenuItem>
           </Link>
-          <Link to="/about">
+          <Link to="/about" style={{ textDecoration: "none" }}>
             <MenuItem>About</MenuItem>
           </Link>
           <Link to="/card">

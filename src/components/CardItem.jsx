@@ -76,10 +76,24 @@ const SummaryItemPrice = styled.span``;
 const Button = styled.button`
   width: 100%;
   padding: 10px;
-  background-color: black;
+  background-color: #f48c06;
+  border: none;
   color: white;
   font-weight: 600;
   cursor: pointer;
+`;
+
+const RemoveButton = styled.button`
+  padding: 3px 5px;
+  background: #9d0208;
+  border: 1px solid #9d0208;
+  cursor: pointer;
+  color: white;
+  &:hover {
+    color: #9d0208;
+    background: #fff;
+    transition: all 0.5s ease;
+  }
 `;
 
 const CardItem = ({ items, remove }) => {
@@ -102,7 +116,9 @@ const CardItem = ({ items, remove }) => {
               </Details>
             </ProductContainer>
             <Action>
-              <button onClick={() => remove(item.id)}>Remove</button>
+              <RemoveButton onClick={() => remove(item.id)}>
+                Remove
+              </RemoveButton>
             </Action>
           </Product>
         ))}
