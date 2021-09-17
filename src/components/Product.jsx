@@ -57,7 +57,7 @@ const Product = ({ item }) => {
 
       <Image src={item.img} />
       <ButtonWrapper>
-        <Button onClick={() => addToCard(item)}>Add To Card</Button>
+        <Button onClick={() => addToCard(item)}>Add To Basket</Button>
       </ButtonWrapper>
     </Container>
   );

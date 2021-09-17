@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import CardItem from "./CardItem";
+import CartItem from "./CartItem";
 import { smartPhone } from "../utils/responsive";
 import { useHistory } from "react-router-dom";
 import ProductContext from "../context/product/productContext";
@@ -42,7 +42,7 @@ const TopButton = styled.button`
   }
 `;
 
-const Card = () => {
+const Cart = () => {
   // call the context
   const productContext = useContext(ProductContext);
   const { card, removeFromCard } = productContext;
@@ -67,11 +67,11 @@ const Card = () => {
         {card.length === 0 ? (
           <h1>Your Basket is Empty</h1>
         ) : (
-          <CardItem items={card} remove={removeFromCard} />
+          <CartItem items={card} remove={removeFromCard} />
         )}
       </Wrapper>
     </Container>
   );
 };
 
-export default Card;
+export default Cart;

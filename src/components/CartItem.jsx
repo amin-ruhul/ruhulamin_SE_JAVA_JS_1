@@ -96,7 +96,7 @@ const RemoveButton = styled.button`
   }
 `;
 
-const CardItem = ({ items, remove }) => {
+const CartItem = ({ items, remove }) => {
   const getBasketTotal = (basket = items) =>
     basket?.reduce((amount, item) => item.price + amount, 0);
   return (
@@ -148,4 +148,4 @@ const CardItem = ({ items, remove }) => {
   );
 };
 
-export default CardItem;
+export default CartItem;
